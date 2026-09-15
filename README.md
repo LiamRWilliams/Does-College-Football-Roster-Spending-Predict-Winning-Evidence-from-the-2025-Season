@@ -2,11 +2,11 @@
 
 **Evidence from the 2025 college football regular season**
 
-This project examines whether estimated college football roster spending is associated with better on-field performance. I assembled and audited a dataset of **68 major college football programs**, standardized performance to each team's **12-game 2025 regular season**, and estimated OLS models in Stata using heteroskedasticity-robust standard errors.
+This project asks whether estimated roster spending predicts on-field success in college football. The dataset covers 68 major programs, with performance lined up to each team's 12-game 2025 regular season. OLS regressions were run in Stata with heteroskedasticity-robust standard errors.
 
 ## Research question
 
-**Is higher estimated roster spending associated with better regular-season performance in major college football?**
+**Is higher estimated roster spending associated with better regular-season performance in college football?**
 
 ## Key findings
 
