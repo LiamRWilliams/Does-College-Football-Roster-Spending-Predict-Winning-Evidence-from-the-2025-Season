@@ -1,57 +1,74 @@
 # Does College Football Roster Spending Predict Winning?
 
-**Evidence from the 2025 college football regular season**
+**Evidence from the 2025 College Football Regular Season**
 
-This project asks whether estimated roster spending predicts on-field success in college football. The dataset covers 68 major programs, with performance lined up to each team's 12-game 2025 regular season. OLS regressions were run in Stata with heteroskedasticity-robust standard errors.
+College football has changed significantly in recent years with the growth of NIL and direct roster spending. Some programs are now spending millions of dollars more than others on their rosters, which raises the question of whether that extra spending is actually associated with better performance on the field.
 
-## Research question
+This project looks at estimated roster payroll and regular-season performance for 68 major college football programs during the 2025 season. I use OLS regression models in Stata to test whether programs with higher estimated roster spending tend to win more games.
+
+## Research Question
 
 **Is higher estimated roster spending associated with better regular-season performance in college football?**
 
-## Key findings
+## Main Findings
 
-- In the 68-team baseline model, an additional **$1 million** in estimated roster payroll is associated with approximately **0.21 additional regular-season wins**.
-- In a conference-controlled robustness specification restricted to the ACC, Big 12, Big Ten, and SEC, an additional **$1 million** is associated with approximately **0.32 additional wins**.
-- In the same conference-controlled specification, an additional **$1 million** is associated with about **15.4 additional points of season point differential**.
-- The payroll coefficient remains positive and statistically significant across low, midpoint, and high payroll estimates.
-- The analysis identifies a strong association, but **does not establish a causal effect of spending on winning**.
+The results show a positive relationship between estimated roster payroll and team performance.
+
+- In the baseline model using all 68 teams, an additional **$1 million in estimated roster payroll is associated with about 0.21 additional regular-season wins**.
+- When conference controls are added for the ACC, Big 12, Big Ten, and SEC, an additional **$1 million is associated with about 0.32 additional wins**.
+- In the conference-controlled point differential model, an additional **$1 million in payroll is associated with about 15.4 additional points of season point differential**.
+- The payroll coefficient remains positive and statistically significant when using the low, midpoint, and high payroll estimates.
+- These results show an association between roster spending and performance, but they **do not prove that higher spending directly causes teams to win more games**.
 
 ![Roster spending and wins](figures/payroll_vs_wins.png)
 
 ## Data
 
-The analysis dataset contains 68 programs and includes:
+The dataset contains 68 college football programs from the 2025 season. The main variables included are:
 
-- estimated roster payroll range and midpoint
+- estimated roster payroll range
+- estimated payroll midpoint
 - conference
-- regular-season wins and losses
+- regular-season wins
+- regular-season losses
 - winning percentage
-- points scored and allowed
+- points scored
+- points allowed
 - season point differential
 
-Performance is restricted to the **12 scheduled regular-season games** for each team. Conference championship games, bowls, and College Football Playoff games are excluded so that every program is evaluated over a comparable outcome window.
+Team performance is limited to each school's **12 scheduled regular-season games**. Conference championship games, bowl games, and College Football Playoff games are excluded.
 
-Payroll estimates come from the Baratelli Institute's college football payroll estimates. Performance data were initially assembled from DraftEdge and audited against official school or conference sources when a game was omitted or a conference championship was included.
+I did this so that every team is being compared over the same number of scheduled games rather than allowing postseason success to give some programs additional opportunities for wins.
 
-The workbook's **Audit** sheet documents every manual performance correction.
+Roster payroll estimates come from the Baratelli Institute's college football payroll estimates. Performance data were initially collected using DraftEdge and then checked against official school and conference records when necessary.
 
-## Empirical strategy
+Some teams had games missing from the original performance data or had conference championship games included. These observations were manually corrected. The **Audit** sheet in the Excel workbook documents these changes.
 
-The baseline model is:
+## Empirical Strategy
+
+The main regression model used in this project is:
 
 **Winsᵢ = β₀ + β₁ Payrollᵢ + εᵢ**
 
-I then estimate models with conference indicators:
+In this model, wins are the dependent variable and estimated roster payroll is the independent variable.
+
+The coefficient β₁ represents the estimated change in regular-season wins associated with an additional $1 million in roster payroll.
+
+I also estimate a model that controls for conference:
 
 **Winsᵢ = β₀ + β₁ Payrollᵢ + Conferenceᵢ + εᵢ**
 
-All main models use heteroskedasticity-robust standard errors.
+Conference controls are included because spending and competition can differ between conferences. Controlling for conference allows the model to compare teams while accounting for some of these differences.
 
-I also use season point differential as an alternative outcome and estimate log-payroll specifications to examine possible nonlinear relationships.
+All main regression models use heteroskedasticity-robust standard errors.
 
-## Main results
+I also use point differential as another measure of team performance. Point differential may provide additional information beyond wins because it measures how much a team outscored or was outscored by its opponents throughout the season.
 
-| Specification | Outcome | Payroll coefficient | R² |
+Log-payroll models are also estimated to test whether the relationship between payroll and performance may be nonlinear.
+
+## Main Results
+
+| Specification | Outcome | Payroll Coefficient | R² |
 |---|---|---:|---:|
 | Baseline, 68 teams | Wins | **0.206*** | 0.164 |
 | Conference controls, 67 Power 4 teams | Wins | **0.315*** | 0.217 |
@@ -60,32 +77,60 @@ I also use season point differential as an alternative outcome and estimate log-
 
 ***p < 0.01. Robust standard errors.**
 
-The preferred conference-controlled specification excludes the single Independent observation so that each conference category contains multiple schools and the robust joint F-test is well defined.
+The baseline wins regression shows that an additional $1 million in estimated roster payroll is associated with approximately 0.206 additional regular-season wins.
+
+This means that a program spending $5 million more than another program would be associated with roughly one additional regular-season win under the baseline model.
+
+The coefficient becomes larger after conference controls are added. In that model, an additional $1 million in payroll is associated with approximately 0.315 additional wins.
+
+The point differential regressions show a similar pattern. Higher-spending teams also tend to have larger season point differentials.
+
+The preferred conference-controlled model contains 67 teams because the single Independent program was excluded. With only one Independent observation, it does not provide a meaningful conference comparison.
 
 ![Roster spending and point differential](figures/payroll_vs_point_diff.png)
 
-## Robustness checks
+## Robustness Checks
 
-The analysis includes:
+Several additional models were estimated to test whether the main relationship remained under different specifications.
+
+These checks include:
 
 - heteroskedasticity-robust standard errors
 - conference controls
-- low and high payroll estimates in addition to the midpoint estimate
+- low payroll estimates
+- midpoint payroll estimates
+- high payroll estimates
 - log payroll specifications
-- point differential as an alternative performance measure
-- exclusion of the lone Independent observation in the preferred conference-controlled robustness specification
+- point differential as an alternative measure of performance
+- exclusion of the lone Independent observation from the main conference-controlled model
 
-The positive payroll relationship remains across these alternative specifications.
+Across these different specifications, estimated roster payroll continues to have a positive relationship with team performance.
 
 ## Limitations
 
-This is an observational cross-sectional analysis, so the coefficients should **not** be interpreted causally. Estimated payroll may be correlated with other determinants of performance, including recruiting talent, coaching quality, historical program strength, schedule difficulty, facilities, and institutional resources.
+There are several important limitations to this analysis.
 
-The payroll figures are estimates rather than audited school payroll disclosures, which introduces measurement uncertainty. The analysis also covers only one season.
+The largest limitation is that the data are observational. Because of this, the regression results cannot show that spending more money directly causes a college football team to win more games.
 
-Future work could add recruiting talent, strength of schedule, prior-year performance, coaching changes, and multiple seasons of data.
+Programs with larger payrolls may also have other advantages that contribute to winning. These could include recruiting talent, coaching quality, historical program strength, facilities, schedule difficulty, fan support, and other institutional resources.
 
-## Repository structure
+Another limitation is that the roster payroll numbers are estimates rather than audited financial disclosures from each university. Because of this, there is likely some measurement error in the payroll variable.
+
+The project also only examines the 2025 season. One season provides a useful comparison between programs, but multiple seasons would provide a much larger dataset and allow the relationship between spending and performance to be studied over time.
+
+Future versions of this project could include variables such as:
+
+- recruiting rankings
+- strength of schedule
+- prior-year performance
+- coaching changes
+- returning production
+- transfer portal activity
+- multiple seasons of payroll and performance data
+
+These variables could help isolate the relationship between roster spending and winning more clearly.
+
+## Repository Structure
 
 ```text
 college-football-roster-spending-2025/
@@ -101,7 +146,9 @@ college-football-roster-spending-2025/
     └── regression_results.md
 ```
 
-## Reproducing the analysis
+## Reproducing the Analysis
+
+To reproduce the analysis:
 
 1. Clone or download this repository.
 2. Open Stata.
@@ -112,18 +159,27 @@ college-football-roster-spending-2025/
 do "code/nil_project_2025.do"
 ```
 
-The do-file imports the cleaned Excel dataset, reproduces the regressions, exports the two figures, and optionally saves a Stata `.dta` file.
+The do-file imports the cleaned Excel dataset, runs the regressions used in the project, and creates the figures shown in this README.
 
-## Data sources
+It can also optionally save the cleaned dataset as a Stata `.dta` file.
 
-- Payroll estimates: Baratelli Institute — College Football Payroll by School  
-  https://baratelliinstitute.com/college-football-payroll-by-school
-- Base performance table: DraftEdge — College Football Team Rankings  
-  https://draftedge.com/cfb/cfb-team-rankings/
-- Official school and conference sources used for audited corrections are listed in the workbook's **Audit** sheet.
+## Data Sources
+
+**Roster Payroll Estimates**
+
+Baratelli Institute — College Football Payroll by School  
+https://baratelliinstitute.com/college-football-payroll-by-school
+
+**Team Performance Data**
+
+DraftEdge — College Football Team Rankings  
+https://draftedge.com/cfb/cfb-team-rankings/
+
+Official school and conference sources were also used to verify and correct individual team records when necessary. These corrections are documented in the **Audit** sheet of the Excel workbook.
 
 ## Author
 
-Liam Williams
+**Liam Williams**  
+Oregon State University
 
-Economics / quantitative research portfolio project.
+Economics and quantitative research portfolio project.
